@@ -19,19 +19,20 @@ var COFFEE_APP = path.join(__dirname, 'fixtures', 'coffee-app-2');
 
 describe('compiler', function() {
   function getModelByName(aModels, aName) {
-    for (let model of aModels) {
+    for (var i in aModels) {
+      var model = aModels[i];
       if (model.name === aName) return model;
     }
   }
   describe('from directory', function() {
     it('loads Model yaml config files', function() {
-      var instructions = boot.compile(COFFEE_APP)
+      var instructions = boot.compile(COFFEE_APP);
       var model = getModelByName(instructions.models, 'Order');
       expect(model).to.be.exist;
       expect(model.sourceFile).to.be.exist;
     });
     it('loads component-config.yaml file', function() {
-      var instructions = boot.compile(COFFEE_APP)
+      var instructions = boot.compile(COFFEE_APP);
       var component = instructions.components[0];
       expect(component).to.eql({
         sourceFile: require.resolve('debug'),
